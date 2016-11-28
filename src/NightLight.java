@@ -4,6 +4,7 @@ public class NightLight extends Appliance{
         super(electricityUse, gasUse, waterUse, timeOn);
     }
 
+    //if state = true, light is switched on and vice versa
     @Override
     public void use(boolean state, Person person) throws Exception {
         setCurrentState(state);

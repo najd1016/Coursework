@@ -89,11 +89,14 @@ public abstract class Person {
     //called by House class during its timePasses loop. ArrayList is passed in by House object
     //method checks if person has any task set for current time and increments current time so that we keep track of time
     public  void timePasses(ArrayList<Appliance> appliances) throws Exception{
-        currentTime++; //increment currentTime by one so we can keep track of how many 15mins have passed. Required as we need to know if currentTime has any tasks allocated
+
+        //increment currentTime by one so we can keep track of how many 15mins have passed. Required as we need to know if currentTime has any tasks allocated
+        currentTime++;
 
         String task = tasksToDo.get(currentTime);
 
-        if(task != null){ //have found task allocated to this time!
+        //have found task allocated to this time!
+        if(task != null){
 
             System.out.println(name+", a(n) "+this.getClass().getName().toLowerCase()+
                     " is attempting to execute task: "+task);

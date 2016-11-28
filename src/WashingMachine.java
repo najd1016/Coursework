@@ -9,7 +9,7 @@ public class WashingMachine extends Appliance{
         doWashing();
     }
 
-    public void doWashing(){
+    private void doWashing(){
         setTimeRemaining(getTimeOn());
         setCurrentState(true);
         System.out.println("Washing machine turned on");

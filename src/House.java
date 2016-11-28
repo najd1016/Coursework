@@ -77,17 +77,6 @@ public class House {
         return houseAppliances.size();
     }
 
-    //returns number of initialised meters attached to house by checking if they're = null
-    public int numMeters(){
-        int total = 0;
-
-        if(electricMeter != null) total++;
-        if(gasMeter != null) total++;
-        if(waterMeter != null) total++;
-
-        return total;
-    }
-
     //method uses foreach loop to call timePasses on each appliance and the same for persons too
     //within foreach loop for appliances, the simulation of indoor temperature also occurs since we have access to the boiler here
     //method also increments timePassed to keep track of time and prints out the totals when time reaches 96 (end of day)
@@ -97,6 +86,14 @@ public class House {
 
         System.out.println();
         System.out.println("Time: "+timePassed);
+
+        for (Person person: persons) {
+            try {
+                person.timePasses(houseAppliances);
+            } catch (Exception e) {
+                System.err.println("Error whilst calling time passes on person "+person.getName()+": "+e.getMessage());
+            }
+        }
 
         for(Appliance appliance: houseAppliances){
 
@@ -126,14 +123,6 @@ public class House {
                 DecimalFormat df = new DecimalFormat("#.00");
 
                 System.out.println("Temperature: "+df.format(temperature));
-            }
-        }
-
-        for (Person person: persons) {
-            try {
-                person.timePasses(houseAppliances);
-            } catch (Exception e) {
-                System.err.println("Error whilst calling time passes on person "+person.getName()+": "+e.getMessage());
             }
         }
 

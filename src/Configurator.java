@@ -374,11 +374,15 @@ public class Configurator {
 
     }
 
+    //splits the inputted string to obtain the strings for name, age and gender
+    //throws Exceptions if syntax is incorrect, for instance age is negative or
+    //doesn't contain three inputs (missing name, age or gender)
     private void addPerson(ArrayList<String> personData, House myHouse) throws Exception{
         String name, gender;
         int age;
 
-        String combinedData = personData.get(0).split(":")[1]; //gets first line ie Person:x,y,z, splits on : and returns x,y,z
+        //gets first line ie Person:x,y,z, splits on : and returns x,y,z
+        String combinedData = personData.get(0).split(":")[1];
         String[] splitData = combinedData.split(",");
 
         if(splitData.length == 3) {
@@ -387,17 +391,23 @@ public class Configurator {
             age = Integer.parseInt(splitData[1]);
             gender = splitData[2];
 
-            personData.remove(0); //remove first line, just leaving tasks
+            //remove first line, just leaving tasks
+            personData.remove(0);
 
             if(age < 0) throw new Exception("Age of person "+name+" is less than 0, so they will not be added!");
 
             if(age >= 18){
                 Adult adult = new Adult(age, name, gender);
-                if(!personData.isEmpty()) adult.setTasks(parsePersonalTasks(personData)); //isEmpty check stops parsePersonalTasks being called on empty list
+                //isEmpty check stops parsePersonalTasks being called on empty list
+
+                if(!personData.isEmpty()) adult.setTasks(parsePersonalTasks(personData));
                 myHouse.addPerson(adult);
+
             }else{
                 Child child = new Child(age, name, gender);
-                if(!personData.isEmpty()) child.setTasks(parsePersonalTasks(personData)); //isEmpty check stops parsePersonalTasks being called on empty list
+
+                //isEmpty check stops parsePersonalTasks being called on empty list
+                if(!personData.isEmpty()) child.setTasks(parsePersonalTasks(personData));
                 myHouse.addPerson(child);
             }
 
@@ -406,6 +416,9 @@ public class Configurator {
         }
     }
 
+    //takes all the lines beneath a Person: declaration and parses the tasks
+    //Parsing the tasks simply means separating the task and the time (multiple of 15 mins)
+    //at which to execute
     private HashMap<Integer, String> parsePersonalTasks(ArrayList<String> tasks){
 
         HashMap<Integer, String> parsedTasks = new HashMap<>();
@@ -519,6 +532,8 @@ public class Configurator {
         }
     }
 
+    //use foreach loops to add all elements in both ArrayList, adding the meters first as the house addAppliance
+    //attaches the meters to the appliances so the meters cannot be null/must be instantiated first
     private void addArraysToHouse(House myHouse){
 
         for (Meter meter: metersToAdd) {
@@ -534,8 +549,7 @@ public class Configurator {
         }
     }
 
-    //adds missing meters to ArrayList
-    //etc
+    //adds missing meters to ArrayList so that we don't get any un-needed null pointer exceptions
     private void addMissingMeters(){
         boolean electric = false, gas = false
                 , water = false;
@@ -564,5 +578,4 @@ public class Configurator {
 
     }
 
-    //// TODO: 27/11/2016 edit: dont add appliances until config finished then add meters, check if all there, else add req meters then add appliances to avoid missing meters
 }

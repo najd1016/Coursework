@@ -5,7 +5,8 @@ public class TV extends Appliance{
     }
 
     //checks person using is an adult as children aren't allowed to turn off TV
-    //then sets currentState = state accordingly
+    //then sets currentState = state accordingly ie wont alter currentState if on and
+    //person is a child
     public void use(boolean state, Person person) throws Exception {
         if(person instanceof Adult) {
 
@@ -19,7 +20,7 @@ public class TV extends Appliance{
 
         }else{
             if (state) {
-                setCurrentState(state);
+                setCurrentState(true);
                 System.out.println("TV turned on");
             }else{
                 throw new Exception("Child tried to turn off TV: not allowed!");
