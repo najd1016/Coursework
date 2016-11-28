@@ -535,6 +535,7 @@ public class Configurator {
     }
 
     //adds missing meters to ArrayList
+    //etc
     private void addMissingMeters(){
         boolean electric = false, gas = false
                 , water = false;
