@@ -4,11 +4,17 @@ public class Main {
 
     public static void main(String[] args){
         Main m = new Main();
-        m.run(args[0]);
+
+        if(args.length > 0) {
+            m.run(args[0]);
+        }else{
+            System.err.println("No config file specified");
+            System.exit(0);
+        }
     }
 
     //Creates configurator which configures myHouse and then executes timePasses on myHouse until the system exits
-    public void run(String argument){
+    private void run(String argument){
 
         //house must be created/init before parsingConfig otherwise myHouse.addXYZ etc will return null pointers exceptions
         myHouse = new House();
