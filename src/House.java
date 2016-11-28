@@ -87,6 +87,8 @@ public class House {
         System.out.println();
         System.out.println("Time: "+timePassed);
 
+        //persons must be iterated over first so that the increment consumeds are correct if the
+        //currentState of an appliance was altered by a persons task
         for (Person person: persons) {
             try {
                 person.timePasses(houseAppliances);
