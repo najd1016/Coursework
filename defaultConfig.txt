@@ -1,0 +1,17 @@
+House:
+ElectricMeter:25,true
+WaterMeter:52
+GasMeter:7
+GasCooker:
+Boiler:
+TV:
+WashingMachine:3,0,2
+Person:Dave,15,M
+Shower:28
+Cook:30
+DoWashing:40
+Person:Fiona,24,F
+TurnOnTV:33
+TurnOffTV:36
+Cook:45
+Shower:48
