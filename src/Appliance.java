@@ -85,9 +85,6 @@ public abstract class Appliance {
 
                 electricMeter.incrementConsumed(electricityUse);
 
-                if (electricMeter.canGenerate())
-                    electricMeter.incrementGenerated(electricityGenerated);
-
                 //gas meter not essential as house appliances can run entirely off water + electricity
                 //so the gasMeter may not have been created = null pointer exception if you try and increment
                 //thus we check if appliance actually requires gas before calling to avoid unneeded errors
@@ -109,7 +106,8 @@ public abstract class Appliance {
                         String[] splitName = getClass().getName().split("(?=[A-Z])");
 
                         for (String s : splitName) {
-                            System.out.print(s + " "); //add space to separate split words
+                            //add space to separate split words
+                            System.out.print(s + " ");
                         }
 
                         System.out.println("turned off");

@@ -77,6 +77,12 @@ public class House {
         return houseAppliances.size();
     }
 
+    //TODO add boiler simulation method
+
+    private void simulateBoiler(Appliance appliance){
+
+    }
+
     //method uses foreach loop to call timePasses on each appliance and the same for persons too
     //within foreach loop for appliances, the simulation of indoor temperature also occurs since we have access to the boiler here
     //method also increments timePassed to keep track of time and prints out the totals when time reaches 96 (end of day)
@@ -134,7 +140,7 @@ public class House {
             System.out.println("End of day!");
             System.out.println("Today's totals are:");
 
-            //null checks to avoid null pointer exceptions if the meter was not initialised
+            //null checks to avoid null pointer exceptions if the meter was somehow not initialised
             if(electricMeter != null){
                 System.out.println("Electricity consumed: "+electricMeter.getConsumed());
 

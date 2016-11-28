@@ -10,7 +10,7 @@ public abstract class Cooker extends Appliance{
         if(person instanceof Adult){
             cook();
         }else{
-            throw new Exception("Child tried to use a cooker!");
+            throw new Exception(person.getName()+" is a child and tried to use a cooker!");
         }
     }
 
