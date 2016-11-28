@@ -10,7 +10,7 @@ public class Dishwasher extends Appliance{
     }
 
     //turns on dishwasher
-    public void washDishes(){
+    private void washDishes(){
         setTimeRemaining(getTimeOn());
         setCurrentState(true);
         System.out.println("Dishwasher turned on");

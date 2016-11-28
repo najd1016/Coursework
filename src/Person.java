@@ -112,7 +112,7 @@ public abstract class Person {
     }
 
     //returns Name of person object. Useful for debugging ie "Jeremy is too young to use cooker!"
-     public String getName(){
+    public String getName(){
         return name;
     }
 

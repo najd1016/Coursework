@@ -9,11 +9,16 @@ import java.util.HashMap;
 
 public class Configurator {
 
+    //stores all appliances before we actually add them to house. We don't just directly
+    //add them to the house as if the user has placed the appliances before the meters in
+    //the config then, since adding appliances also attaches the meters, the meters on the
+    //appliances will be null = null pointer exceptions when incrementing meters
     private ArrayList<Appliance> appliancesToAdd;
 
+    //stores all meters before we actually add them to the house
     private ArrayList<Meter> metersToAdd;
 
-
+    //constructor simply initialises the two array lists
     public Configurator(){
         appliancesToAdd = new ArrayList<>();
         metersToAdd = new ArrayList<>();

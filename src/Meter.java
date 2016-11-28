@@ -58,7 +58,7 @@ public abstract class Meter {
         return generated;
     }
 
-    //overriden in specific meters to give types
+    //overridden in specific meters to give types
     abstract String getType();
 
 }

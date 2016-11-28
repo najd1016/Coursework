@@ -28,5 +28,4 @@ public class TV extends Appliance{
         }
     }
 
-
 }
