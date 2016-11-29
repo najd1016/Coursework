@@ -11,16 +11,23 @@ public class House {
 
     private int timePassed;
 
+    //how many iterations of 15 mins the boiler has been on for
+    //boiler always switches off after 2 hours
     private int boilerOnFor;
 
-    private double indoorTemperature, outdoorTemperature, desiredTemp;
+    //temperature variables used for central heating simulation
+    private double indoorTemperature, outdoorTemperature, desiredTemperature;
 
     //construction sets timePasses = 0, temperature to 20 degrees and initialises both arrayLists
-    public House(){
+    public House(double indoorTemperature, double desiredTemperature) {
         timePassed = 0;
-        indoorTemperature = 20.0;
-        outdoorTemperature = 14.0;
-        desiredTemp = 18.0;
+
+        this.indoorTemperature = indoorTemperature;
+        this.desiredTemperature = desiredTemperature;
+
+        outdoorTemperature = 8.0;
+
+
         houseAppliances = new ArrayList<>();
         persons = new ArrayList<>();
     }
@@ -81,11 +88,20 @@ public class House {
         return houseAppliances.size();
     }
 
-    //TODO add boiler simulation method
+    //simulates temperature using exponential based on temperature differences between inside and outside
+    //and also exponential based on how long boiler has been on to simulate the boiler 'warming up' as it was
+    private void simulateCentralHeating(Boiler boiler) {
 
-    private void simulateBoiler(Boiler boiler) {
+        //simulate outdoor temperature rising up until midday then decreasing again as sun lowers
+        if (timePassed < 49) {
+            outdoorTemperature += 8.0 / 48;
+        } else {
+            outdoorTemperature -= 8.0 / 48;
+        }
 
-        if (indoorTemperature < desiredTemp) boiler.turnOn();
+
+        if (indoorTemperature < desiredTemperature
+                && !boiler.getCurrentState()) boiler.turnOn();
 
         //house temp only decreases if boiler off
         if (!boiler.getCurrentState()) {
@@ -107,25 +123,9 @@ public class House {
 
         DecimalFormat df = new DecimalFormat("#.00");
 
-        System.out.println("Temperature: " + df.format(indoorTemperature));
+        System.out.println("Indoor temperature: " + df.format(indoorTemperature));
+        System.out.println("Outdoor temperature: " + df.format(outdoorTemperature));
     }
-
-    /*temperature -= 0.2;
-
-                if(appliance.getCurrentState()) temperature += 0.5;
-
-    //have to cast to Boiler so we can use .turnOn method, could just change state but that wouldn't print 'Boiler turned x'
-                if(temperature < 19.0){
-        appliance.setCurrentState(true);
-    }else{
-        appliance.setCurrentState(false);
-    }
-
-    //just so we don't get a mad number of decimal places from temperature
-    DecimalFormat df = new DecimalFormat("#.00");
-
-                System.out.println("Temperature: "+df.format(temperature));
-    */
 
     //method uses foreach loop to call timePasses on each appliance and the same for persons too
     //within foreach loop for appliances, the simulation of indoor temperature also occurs since we have access to the boiler here
@@ -159,7 +159,7 @@ public class House {
 
             //check if current appliance is our Boiler, means if config doesn't contain boiler temp wont be simulated
             if(appliance instanceof Boiler){
-                simulateBoiler((Boiler) appliance);
+                simulateCentralHeating((Boiler) appliance);
             }
         }
 

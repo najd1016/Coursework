@@ -96,6 +96,7 @@ public abstract class Appliance {
                 //decreases time remaining as long as > 0. If < 0, value should -1 which means run for infinity
                 //meaning we don't have to worry about decreasing timeOn, turning off etc
                 if (timeRemaining > 0) {
+
                     timeRemaining--;
 
                     if (timeRemaining == 0) {

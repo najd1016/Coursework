@@ -1,7 +1,7 @@
 public class Tester {
 
     public void test(){
-        House myHouse = new House();
+        House myHouse = new House(20, 18);
 
         try {
             myHouse.addAppliance(null);
@@ -28,7 +28,7 @@ public class Tester {
         }
 
         Dishwasher dishwasher = new Dishwasher(0, 0, 0, 0);
-        myHouse = new House();
+        myHouse = new House(20, 18);
 
         for (int i = 0; i < 25; i++) {
             try {

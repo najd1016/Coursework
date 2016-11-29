@@ -16,9 +16,6 @@ public class Main {
     //Creates configurator which configures myHouse and then executes timePasses on myHouse until the system exits
     private void run(String argument){
 
-        //house must be created/init before parsingConfig otherwise myHouse.addXYZ etc will return null pointers exceptions
-        myHouse = new House();
-
         Configurator configurator = new Configurator();
 
         Tester tester = new Tester();
@@ -26,8 +23,10 @@ public class Main {
 
         if(!argument.isEmpty()){
 
+            //house must be created/init before parsingConfig otherwise myHouse.addXYZ etc will return null pointers exceptions
+
             //have to pass in myHouse variable so configurator can add appliances etc
-            configurator.parseConfig(configurator.readConfig(argument), myHouse);
+            myHouse = configurator.parseConfig(configurator.readConfig(argument));
 
         }else{
             System.err.println("No config specified so simulation can't run!");

@@ -449,13 +449,50 @@ public class Configurator {
         return parsedTasks;
     }
 
+    private House initialiseHouse(ArrayList<String> input) throws Exception {
+
+        for (String line : input) {
+
+            if (line.startsWith("House:")) {
+                String splitSettings[] = line.split(":");
+
+                if (splitSettings.length > 1) {
+
+                    splitSettings = splitSettings[1].split(",");
+
+                    if (splitSettings.length == 2) {
+                        try {
+
+                            double indoor = Double.parseDouble(splitSettings[0]);
+                            double desired = Double.parseDouble(splitSettings[1]);
+
+                            return new House(indoor, desired);
+
+                        } catch (Exception e) {
+                            throw new Exception("Invalid syntax for config: arguments given for house settings not recognised!");
+                        }
+
+                    } else {
+                        throw new Exception("Invalid syntax for config: not enough arguments given for house settings!");
+                    }
+
+                }
+            }
+        }
+        return new House(20, 18);
+    }
+
     //takes output from readConfig, detects Person, House etc and calls according methods
     //to create appliances, meters and people. Also catches config errors like having 0 appliances
     //or having less than 3 meters.
-    public void parseConfig(ArrayList<String> input, House myHouse) {
+    public House parseConfig(ArrayList<String> input) {
+        House myHouse = null;
+
         try {
             //essential that it should contain House: so we know where to look for appliances and meters
             if (input.contains("House:")) {
+
+                myHouse = initialiseHouse(input);
 
                 for (String line : input) {
 
@@ -535,6 +572,13 @@ public class Configurator {
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
+
+        if (myHouse == null) {
+            System.err.println("Somehow myHouse has not been initialised! Exiting");
+            System.exit(0);
+        }
+
+        return myHouse;
     }
 
     //use foreach loops to add all elements in both ArrayList, adding the meters first as the house addAppliance

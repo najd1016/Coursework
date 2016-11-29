@@ -24,6 +24,8 @@ public class Boiler extends Appliance{
         }
     }
 
+    //extra methods allow easier use when simulating central heating
+
     public void turnOn() {
         setCurrentState(true);
         System.out.println("Boiler turned on");
