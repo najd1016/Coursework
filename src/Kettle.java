@@ -6,10 +6,15 @@ public class Kettle extends Appliance {
 
     @Override
     public void use(boolean state, Person person) throws Exception {
-        if (person instanceof Adult){
-            boil();
-        }else{
-            throw new Exception("Child tried to use the kettle!");
+        if (!getCurrentState()) {
+            if (person instanceof Adult) {
+                boil();
+            } else {
+                throw new Exception("Child tried to use the kettle!");
+            }
+            throw new Exception(person.getName() + " tried to cook on a cooker already in use");
+        } else {
+            throw new Exception(person.getName() + " tried to use a kettle already in use");
         }
     }
 

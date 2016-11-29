@@ -7,10 +7,14 @@ public abstract class Cooker extends Appliance{
     //calls cook method
     @Override
     public void use(boolean state, Person person) throws Exception{
-        if(person instanceof Adult){
-            cook();
-        }else{
-            throw new Exception(person.getName()+" is a child and tried to use a cooker!");
+        if (!getCurrentState()) {
+            if (person instanceof Adult) {
+                cook();
+            } else {
+                throw new Exception(person.getName() + " is a child and tried to use a cooker!");
+            }
+        } else {
+            throw new Exception(person.getName() + " tried to use a cooker already in use");
         }
     }
 

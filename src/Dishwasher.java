@@ -6,7 +6,11 @@ public class Dishwasher extends Appliance{
 
     @Override
     public void use(boolean state, Person person) throws Exception{
-        washDishes();
+        if (!getCurrentState()) {
+            washDishes();
+        } else {
+            throw new Exception(person.getName() + " tried to use a dishwasher already in use");
+        }
     }
 
     //turns on dishwasher

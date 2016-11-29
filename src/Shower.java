@@ -6,7 +6,11 @@ public abstract class Shower extends Appliance{
 
     @Override
     public void use(boolean state, Person person) throws Exception{
-        shower();
+        if (!getCurrentState()) {
+            shower();
+        } else {
+            throw new Exception(person.getName() + " tried to use a shower already in use");
+        }
     }
 
     abstract void shower();

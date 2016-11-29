@@ -6,7 +6,11 @@ public class WashingMachine extends Appliance{
 
     @Override
     public void use(boolean state, Person person) throws Exception {
-        doWashing();
+        if (!getCurrentState()) {
+            doWashing();
+        } else {
+            throw new Exception(person.getName() + " tried to use on a washing machine already in use");
+        }
     }
 
     private void doWashing(){
