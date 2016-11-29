@@ -11,12 +11,16 @@ public class House {
 
     private int timePassed;
 
-    private double temperature;
+    private int boilerOnFor;
+
+    private double indoorTemperature, outdoorTemperature, desiredTemp;
 
     //construction sets timePasses = 0, temperature to 20 degrees and initialises both arrayLists
     public House(){
         timePassed = 0;
-        temperature = 20.0;
+        indoorTemperature = 20.0;
+        outdoorTemperature = 14.0;
+        desiredTemp = 18.0;
         houseAppliances = new ArrayList<>();
         persons = new ArrayList<>();
     }
@@ -79,9 +83,49 @@ public class House {
 
     //TODO add boiler simulation method
 
-    private void simulateBoiler(Appliance appliance){
+    private void simulateBoiler(Boiler boiler) {
 
+        if (indoorTemperature < desiredTemp) boiler.turnOn();
+
+        //house temp only decreases if boiler off
+        if (!boiler.getCurrentState()) {
+            if (indoorTemperature > outdoorTemperature) {
+                double tempDiff = indoorTemperature - outdoorTemperature;
+                indoorTemperature -= (Math.pow(1.3, (tempDiff)) / 12);
+            }
+        } else {
+            boilerOnFor++;
+            indoorTemperature += (Math.pow(1.1, boilerOnFor) / 5);
+
+            //boiler always stays on for 2 hours before switching off heat increase is
+            //based on how long boiler has been on - ie takes time to 'warmup'
+            if (boilerOnFor == 8) {
+                boilerOnFor = 0;
+                boiler.turnOff();
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        System.out.println("Temperature: " + df.format(indoorTemperature));
     }
+
+    /*temperature -= 0.2;
+
+                if(appliance.getCurrentState()) temperature += 0.5;
+
+    //have to cast to Boiler so we can use .turnOn method, could just change state but that wouldn't print 'Boiler turned x'
+                if(temperature < 19.0){
+        appliance.setCurrentState(true);
+    }else{
+        appliance.setCurrentState(false);
+    }
+
+    //just so we don't get a mad number of decimal places from temperature
+    DecimalFormat df = new DecimalFormat("#.00");
+
+                System.out.println("Temperature: "+df.format(temperature));
+    */
 
     //method uses foreach loop to call timePasses on each appliance and the same for persons too
     //within foreach loop for appliances, the simulation of indoor temperature also occurs since we have access to the boiler here
@@ -115,22 +159,7 @@ public class House {
 
             //check if current appliance is our Boiler, means if config doesn't contain boiler temp wont be simulated
             if(appliance instanceof Boiler){
-
-                temperature -= 0.2;
-
-                if(appliance.getCurrentState()) temperature += 0.5;
-
-                //have to cast to Boiler so we can use .turnOn method, could just change state but that wouldn't print 'Boiler turned x'
-                if(temperature < 19.0){
-                    appliance.setCurrentState(true);
-                }else{
-                    appliance.setCurrentState(false);
-                }
-
-                //just so we don't get a mad number of decimal places from temperature
-                DecimalFormat df = new DecimalFormat("#.00");
-
-                System.out.println("Temperature: "+df.format(temperature));
+                simulateBoiler((Boiler) appliance);
             }
         }
 

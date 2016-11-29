@@ -23,4 +23,14 @@ public class Boiler extends Appliance{
             throw new Exception("Child tried to use a boiler!");
         }
     }
+
+    public void turnOn() {
+        setCurrentState(true);
+        System.out.println("Boiler turned on");
+    }
+
+    public void turnOff() {
+        setCurrentState(false);
+        System.out.println("Boiler turned off");
+    }
 }
