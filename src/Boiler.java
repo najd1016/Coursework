@@ -9,7 +9,7 @@ public class Boiler extends Appliance{
     //throws exception if child is trying to use boiler
     @Override
     public void use(boolean state, Person person) throws Exception {
-        if(person instanceof Adult) {
+        if (person instanceof GrownUp) {
 
             setCurrentState(state);
 

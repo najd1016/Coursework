@@ -8,7 +8,7 @@ public abstract class Cooker extends Appliance{
     @Override
     public void use(boolean state, Person person) throws Exception{
         if (!getCurrentState()) {
-            if (person instanceof Adult) {
+            if (person instanceof GrownUp) {
                 cook();
             } else {
                 throw new Exception(person.getName() + " is a child and tried to use a cooker!");

@@ -402,11 +402,11 @@ public class Configurator {
             if(age < 0) throw new Exception("Age of person "+name+" is less than 0, so they will not be added!");
 
             if(age >= 18){
-                Adult adult = new Adult(age, name, gender);
+                GrownUp grownUp = new GrownUp(age, name, gender);
                 //isEmpty check stops parsePersonalTasks being called on empty list
 
-                if(!personData.isEmpty()) adult.setTasks(parsePersonalTasks(personData));
-                myHouse.addPerson(adult);
+                if (!personData.isEmpty()) grownUp.setTasks(parsePersonalTasks(personData));
+                myHouse.addPerson(grownUp);
 
             }else{
                 Child child = new Child(age, name, gender);

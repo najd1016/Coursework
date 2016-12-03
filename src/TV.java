@@ -8,7 +8,7 @@ public class TV extends Appliance{
     //then sets currentState = state accordingly ie wont alter currentState if on and
     //person is a child
     public void use(boolean state, Person person) throws Exception {
-        if(person instanceof Adult) {
+        if (person instanceof GrownUp) {
 
             setCurrentState(state);
 

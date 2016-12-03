@@ -4,9 +4,9 @@ public abstract class Meter {
     private int generated;
     private boolean generating;
 
-    public Meter(int startingValueConsumed, boolean canGenerate){
-        consumed = startingValueConsumed;
-        generating = canGenerate;
+    public Meter(int consumed, boolean generating) {
+        this.consumed = consumed;
+        this.generating = generating;
     }
 
     //don't use these methods as inefficient to use for loop

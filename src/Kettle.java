@@ -7,7 +7,7 @@ public class Kettle extends Appliance {
     @Override
     public void use(boolean state, Person person) throws Exception {
         if (!getCurrentState()) {
-            if (person instanceof Adult) {
+            if (person instanceof GrownUp) {
                 boil();
             } else {
                 throw new Exception("Child tried to use the kettle!");
